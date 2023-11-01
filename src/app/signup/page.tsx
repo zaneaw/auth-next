@@ -2,31 +2,14 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
-import { useUser } from "../_hooks";
 
-// type Props = {
-//   isAuthenticated: boolean;
-//   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-//   setUser: React.Dispatch<React.SetStateAction<{}>>;
-// };
-
-export default function LoginPage() {
+export default function Signup() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     username: "test user",
     email: "testuser@mail.com",
     password: "password",
   });
-
-  const testData = async () => {
-    const res = await fetch("/api/auth/test", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    });
-    const data = await res.json();
-    console.log("data is: ", data);
-  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
@@ -37,7 +20,7 @@ export default function LoginPage() {
 
   const onSubmit = async () => {
     setIsLoading(true);
-    const res = await fetch("/api/auth/login", {
+    const res = await fetch("/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -53,9 +36,9 @@ export default function LoginPage() {
 
   return (
     <>
-      <Link href={"/signup"}>SIGNUP</Link>
-      <div className="w-100vw flex flex-col items-center justify-center pb-12 pt-4">
-        Login
+      <Link href={"/login"}>LOGIN</Link>
+      <div className="w-100vw flex items-center justify-center pb-12 pt-4">
+        Signup
       </div>
       <form
         onSubmit={onSubmit}
@@ -90,15 +73,9 @@ export default function LoginPage() {
           disabled={isLoading}
           className="rounded border-2 bg-slate-700 px-4 py-2 text-white"
         >
-          Login
+          Signup
         </button>
       </form>
-      <button
-        className="rounded border-2 bg-slate-700 px-4 py-2 text-white"
-        onClick={testData}
-      >
-        Test Data Returned
-      </button>
     </>
   );
 }
