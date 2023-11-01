@@ -37,13 +37,13 @@ export default function LoginPage() {
 
   const onSubmit = async () => {
     setIsLoading(true);
+    // const { data, error, isLoading } = useSWR('/api/user/login');
     const res = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
       credentials: "include",
     });
-    const data = await res.json();
     if (res.ok) {
       console.log("data is ok! ", data);
     }

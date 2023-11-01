@@ -7,7 +7,11 @@ export const SWRProvider = ({ children }: { children: React.ReactNode }) => {
     <SWRConfig
       value={{
         fetcher: (resource, init) =>
-          fetch(resource, { credentials: "include" }).then((res) => res.json()),
+          fetch(resource, {
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            ...init,
+          }).then((res) => res.json()),
       }}
     >
       {children}
